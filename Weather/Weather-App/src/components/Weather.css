@@ -1,0 +1,15 @@
+.Weather {
+    place-self: center;
+    padding: 40px;
+    border-radius: 10px;
+    background-image: linear-gradient(45deg, #2f4680, #500aef);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.searchbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
