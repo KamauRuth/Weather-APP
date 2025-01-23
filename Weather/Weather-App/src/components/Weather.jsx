@@ -75,6 +75,7 @@ const Weather = () => {
             <input ref={inputRef} type='text' placeholder='Search'/>
             <img src= {search} alt="" onClick={()=>Search(inputRef.current.value)}/>
         </div>
+        {weatherData? <>
         <img src= {weatherData.icon} alt="" className='weather-icon' />
         <p className='temperature'>{weatherData.temperature}°C</p>
         <p className='location'> {weatherData.location}</p>
@@ -96,6 +97,7 @@ const Weather = () => {
             </div>
           </div>
         </div>
+        </>:<></>}
     </div>
   )
 }
