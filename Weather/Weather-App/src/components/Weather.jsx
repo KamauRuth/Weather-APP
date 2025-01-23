@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import './Weather.css'
 import search from '../assets/search.png'
 import rainny from '../assets/rainny.png'
@@ -11,6 +11,8 @@ import snow from '../assets/snow.png'
 import { useEffect } from 'react'
 
 const Weather = () => {
+
+  const inputRef = useRef()
 
   const [weatherData, setWeatherData] = useState(false);
 
@@ -33,6 +35,10 @@ const Weather = () => {
   }
 
   const Search = async (city)=> {
+    if (city === "") {
+      alert ("Enter City Name")
+      return;
+    }
     console.log(import.meta.env.VITE_APP_ID);
 
     try {
@@ -42,7 +48,7 @@ const Weather = () => {
       const data = await response.json()
       console.log(data);
 
-      const icons = allIcons[data.weather[0].icons] || sunny
+      const icons = allIcons[data.weather[0].icon] || sunny;
 
       setWeatherData({
         Humidity: data.main.humidity,
@@ -54,21 +60,22 @@ const Weather = () => {
       
       
     } catch (error) {
-      
+      setWeatherData(false)
+      console.error ("Error ")
     }
   }
 
   useEffect (()=>{
-    Search("New York")
+    Search("Nairobi")
   }, [])
 
   return (
     <div className='Weather'>
         <div className="searchbar">
-            <input type='text' placeholder='Search'/>
-            <img src= {search} alt="" />
+            <input ref={inputRef} type='text' placeholder='Search'/>
+            <img src= {search} alt="" onClick={()=>Search(inputRef.current.value)}/>
         </div>
-        <img src= {sunny} alt="" className='weather-icon' />
+        <img src= {weatherData.icon} alt="" className='weather-icon' />
         <p className='temperature'>{weatherData.temperature}°C</p>
         <p className='location'> {weatherData.location}</p>
 
